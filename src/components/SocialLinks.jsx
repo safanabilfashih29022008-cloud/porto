@@ -44,7 +44,7 @@ const socialLinks = [
     displayName: "Github",
     subText: "@Safnf",
     icon: Github,
-    url: "",
+    url: "https://github.com/safanabilfashih29022008-cloud",
     color: "#ffffff",
     gradient: "from-[#333] to-[#24292e]",
   },
