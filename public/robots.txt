@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://safa.com/sitemap.xml
