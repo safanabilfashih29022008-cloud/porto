@@ -15,7 +15,7 @@ import TechStackIcon from "../components/TechStackIcon";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Certificate from "../components/Certificate";
-import { Code, Award, Boxes } from "lucide-react";
+import { Code, Award, Boxes, X } from "lucide-react";
 
 const ToggleButton = ({ onClick, isShowingMore }) => (
   <button
@@ -121,6 +121,7 @@ export default function FullWidthTabs() {
   const [certificates, setCertificates] = useState([]);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showAllCertificates, setShowAllCertificates] = useState(false);
+  const [selectedCert, setSelectedCert] = useState(null);
   const isMobile = window.innerWidth < 768;
   const initialItems = isMobile ? 4 : 6;
 
@@ -129,6 +130,24 @@ export default function FullWidthTabs() {
       once: false,
     });
   }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setSelectedCert(null);
+      }
+    };
+    if (selectedCert) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedCert]);
 
   const fetchData = useCallback(async () => {
     try {
@@ -391,7 +410,12 @@ export default function FullWidthTabs() {
                           : "1000"
                     }
                   >
-                    <Certificate ImgSertif={certificate.Img} />
+                    <Certificate
+                      ImgSertif={certificate.Img}
+                      title={certificate.title}
+                      issuer={certificate.issuer}
+                      onClick={() => setSelectedCert(certificate)}
+                    />
                   </div>
                 ))}
               </div>
@@ -438,6 +462,54 @@ export default function FullWidthTabs() {
           </TabPanel>
         </SwipeableViews>
       </Box>
+
+      {/* Lightbox Modal saat Sertifikat diklik */}
+      {selectedCert && (
+        <div
+          onClick={() => setSelectedCert(null)}
+          className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 md:p-8 animate-in fade-in duration-200"
+        >
+          {/* Tombol Tutup */}
+          <button
+            onClick={() => setSelectedCert(null)}
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 shadow-xl z-20 group"
+            aria-label="Tutup preview sertifikat"
+          >
+            <X className="w-5 h-5 text-gray-200 group-hover:text-white" />
+          </button>
+
+          {/* Konten Modal */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative max-w-4xl w-full flex flex-col items-center max-h-[92vh] animate-in zoom-in-95 duration-200"
+          >
+            <div className="relative rounded-2xl overflow-hidden border border-white/15 bg-slate-950/90 shadow-2xl p-2 sm:p-4 w-full flex flex-col items-center">
+              <img
+                src={selectedCert.Img}
+                alt={selectedCert.title || "Certificate"}
+                className="max-h-[75vh] w-auto max-w-full object-contain rounded-xl shadow-inner select-none"
+              />
+
+              {(selectedCert.title || selectedCert.issuer) && (
+                <div className="pt-3 pb-1 text-center space-y-1">
+                  {selectedCert.title && (
+                    <h3 className="text-lg md:text-xl font-semibold bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent">
+                      {selectedCert.title}
+                    </h3>
+                  )}
+                  {selectedCert.issuer && (
+                    <p className="text-gray-400 text-xs sm:text-sm">{selectedCert.issuer}</p>
+                  )}
+                </div>
+              )}
+            </div>
+
+            <p className="mt-3 text-xs text-gray-400 opacity-75">
+              Klik di luar atau tekan tombol ESC untuk menutup
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

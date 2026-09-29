@@ -1,8 +1,20 @@
 import React from "react";
+import { Maximize2 } from "lucide-react";
 
 const Certificate = ({ ImgSertif, title, issuer, onClick }) => {
   return (
-    <div onClick={onClick} className="group relative w-full cursor-pointer">
+    <div
+      onClick={onClick}
+      className="group relative w-full cursor-pointer focus:outline-none"
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick?.();
+        }
+      }}
+    >
       <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-lg border border-white/10 shadow-2xl transition-all duration-300 hover:shadow-purple-500/20 hover:scale-[1.02]">
         {/* Efek gradient latar belakang saat di-hover */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
@@ -15,6 +27,13 @@ const Certificate = ({ ImgSertif, title, issuer, onClick }) => {
               alt={title || "Certificate"}
               className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-500"
             />
+            {/* Overlay zoom indicator saat hover */}
+            <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-600/90 backdrop-blur-md text-white text-xs font-medium shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 border border-white/20">
+                <Maximize2 className="w-3.5 h-3.5" />
+                <span>Lihat Sertifikat</span>
+              </div>
+            </div>
           </div>
 
           {/* Informasi Sertifikat (Opsional jika ingin ditampilkan teksnya) */}
