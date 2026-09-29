@@ -1,12 +1,5 @@
 import React, { useEffect, useState, memo, useMemo } from "react";
-import {
-  FileText,
-  Code,
-  Award,
-  Globe,
-  ArrowUpRight,
-  Sparkles,
-} from "lucide-react";
+import { FileText, Code, Award, Globe, ArrowUpRight } from "lucide-react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -27,9 +20,7 @@ const Header = memo(() => (
       data-aos="zoom-in-up"
       data-aos-duration="800"
     >
-      <Sparkles className="w-5 h-5 text-purple-400" />
       Transforming ideas into digital experiences
-      <Sparkles className="w-5 h-5 text-purple-400" />
     </p>
   </div>
 ));
@@ -52,7 +43,7 @@ const ProfileImage = memo(() => (
           <div className="absolute inset-0 bg-gradient-to-t from-purple-500/20 via-transparent to-blue-500/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden sm:block" />
 
           <img
-            src="photo1.png"
+            src="pas photo.png"
             alt="Profile"
             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
             loading="lazy"
@@ -293,7 +284,7 @@ const AboutPage = () => {
             {/* Tombol Aksi */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 w-full pt-2">
               <a
-                href="https://drive.google.com/file/d/1KTLCgio6zfCqF3CDUGBHV_9DENPwmehm/view?usp=sharing"
+                href="https://drive.google.com/drive/folders/1BOm51Grsabb3zj6Xk27K-iRwI1zITcpo"
                 className="w-full sm:w-auto"
               >
                 <button
