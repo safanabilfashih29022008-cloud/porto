@@ -284,7 +284,7 @@ const AboutPage = () => {
             {/* Tombol Aksi */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 w-full pt-2">
               <a
-                href="https://drive.google.com/drive/folders/1BOm51Grsabb3zj6Xk27K-iRwI1zITcpo"
+                href="https://drive.google.com/file/d/1KTLCgio6zfCqF3CDUGBHV_9DENPwmehm/view?usp=sharing"
                 className="w-full sm:w-auto"
               >
                 <button
